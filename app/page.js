@@ -2,11 +2,6 @@
 import Image from 'next/image';
 import Link from 'next/link';
 
-// export const metadata = {
-//   title: 'Get Me A Chai - A website to fund your project with chai',
-//   description: 'This website is a crowdfunding platform',
-// };
-
 export default function Home() {
   return (
     <div className="min-h-[85vh] w-full bg-[#000000] bg-[radial-gradient(#ffffff33_1px,#00091d_1px)] bg-[size:20px_20px]">
@@ -16,7 +11,13 @@ export default function Home() {
         <div className="flex items-center justify-center gap-2 flex-wrap">
           <h1 className="font-bold text-4xl sm:text-5xl md:text-6xl">Get Me A Chai</h1>
           <div className="w-16 sm:w-20 relative">
-            <img src="/tea.gif" className="relative top-[-6px] w-full" alt="tea gif" />
+            <Image
+              src="/tea.gif"
+              alt="tea gif"
+              width={80}
+              height={80}
+              className="relative top-[-6px] w-full"
+            />
           </div>
         </div>
         <p className="text-sm sm:text-base max-w-md">
@@ -48,13 +49,19 @@ export default function Home() {
 
         <div className="flex flex-col md:flex-row gap-10 justify-center items-center w-full max-w-6xl">
           {[
-            { img: './fund3.gif', title: 'Fund Yourself', desc: 'Raise money easily and securely.' },
-            { img: './fund1.gif', title: 'Transfer Anywhere', desc: 'Receive funds globally with ease.' },
-            { img: './fund6.gif', title: 'Transfer Anytime', desc: 'No delays. Get paid instantly.' },
+            { img: '/fund3.gif', title: 'Fund Yourself', desc: 'Raise money easily and securely.' },
+            { img: '/fund1.gif', title: 'Transfer Anywhere', desc: 'Receive funds globally with ease.' },
+            { img: '/fund6.gif', title: 'Transfer Anytime', desc: 'No delays. Get paid instantly.' },
           ].map((item, i) => (
             <div key={i} className="flex flex-col items-center gap-3 w-full md:w-1/3">
               <div className="bg-white w-24 h-24 rounded-full overflow-hidden">
-                <img src={item.img} alt={item.title} className="w-full h-full object-cover" />
+                <Image
+                  src={item.img}
+                  alt={item.title}
+                  width={96}
+                  height={96}
+                  className="w-full h-full object-cover"
+                />
               </div>
               <div className="text-lg font-bold">{item.title}</div>
               <div className="text-sm text-gray-300">{item.desc}</div>

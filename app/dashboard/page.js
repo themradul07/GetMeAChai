@@ -28,7 +28,7 @@ const Dashboard = () => {
     }
     document.title = 'Dashboard - Get Me A Chai';
     fetchDashboard(session?.user?.name);
-  }, [session]);
+  }, [session, router]);
 
   const fetchDashboard = async (username) => {
     if (!username) return;

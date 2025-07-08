@@ -3,6 +3,7 @@
 import React, { useState } from 'react';
 import Link from 'next/link';
 import { useSession, signOut } from 'next-auth/react';
+import Image from 'next/image';
 
 const Navbar = () => {
   const { data: session } = useSession();
@@ -14,7 +15,7 @@ const Navbar = () => {
       <div className="flex justify-between items-center">
         {/* Logo */}
         <Link href="/" className="flex items-center gap-2">
-          <img src="/tea.gif" alt="logo" className="w-6" />
+          <Image src="/tea.gif" alt="logo" width={24} height={24} className="w-6" />
           <span className="text-lg font-bold">Get Me A Chai!!</span>
         </Link>
 
@@ -61,7 +62,7 @@ const Navbar = () => {
               </button>
 
               <div
-                className={`absolute right-0 mt-2 z-20 w-44 bg-white dark:bg-gray-700 rounded-md shadow-md transition-all ${
+                className={`absolute right-0 mt-10 z-20 w-44 bg-white dark:bg-gray-700 rounded-md shadow-md transition-all ${
                   showDropdown ? 'block' : 'hidden'
                 }`}
               >
@@ -97,11 +98,7 @@ const Navbar = () => {
                 </ul>
                 <div className="py-2">
                   <button
-                    onClick={() =>
-                      signOut({
-                        callbackUrl: '/',
-                      })
-                    }
+                    onClick={() => signOut({ callbackUrl: '/' })}
                     className="w-full text-left px-4 py-2 text-sm text-gray-700 hover:bg-gray-100 dark:hover:bg-gray-600 dark:text-gray-200 dark:hover:text-white"
                   >
                     Sign out
@@ -124,34 +121,26 @@ const Navbar = () => {
         <div className="sm:hidden mt-4 space-y-2">
           {session ? (
             <>
-              
-              <Link onClick={()=>{setMobileMenuOpne(!mobileMenuOpen)}} href="/" className="block px-2 py-1 text-white rounded">
+              <Link onClick={() => setMobileMenuOpen(false)} href="/" className="block px-2 py-1 text-white rounded">
                 Homepage
               </Link>
-              <Link onClick={()=>{setMobileMenuOpne(!mobileMenuOpen)}} href="/dashboard" className="block px-2 py-1 text-white rounded">
+              <Link onClick={() => setMobileMenuOpen(false)} href="/dashboard" className="block px-2 py-1 text-white rounded">
                 Dashboard
               </Link>
-              <Link onClick={()=>{setMobileMenuOpne(!mobileMenuOpen)}} href={`/${session.user.name}`} className="block px-2 py-1 text-white rounded">
+              <Link onClick={() => setMobileMenuOpen(false)} href={`/${session.user.name}`} className="block px-2 py-1 text-white rounded">
                 Profile
               </Link>
               <button
-                onClick={() =>
-                  signOut({
-                    callbackUrl: '/',
-                  })
-                }
+                onClick={() => signOut({ callbackUrl: '/' })}
                 className="block w-full text-left px-2 py-1 text-white hover:bg-gray-800 rounded"
               >
                 Sign out
               </button>
             </>
           ) : (
-            <Link onClick={()=>{setMobileMenuOpne(!mobileMenuOpen)}}  href="/login">
-              <button
-                
-                className="block w-full text-left px-2 py-1 text-white hover:bg-gray-800 rounded"
-              >
-                Login In
+            <Link onClick={() => setMobileMenuOpen(false)} href="/login">
+              <button className="block w-full text-left px-2 py-1 text-white hover:bg-gray-800 rounded">
+                Login
               </button>
             </Link>
           )}

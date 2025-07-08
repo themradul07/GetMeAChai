@@ -22,7 +22,7 @@ const userSchema = new Schema({
     },
     coverPicture: {
         type: String,
-        default: "banner.gif",
+        default: "/banner.gif",
     },
     razorpayKey: {
         type: String,

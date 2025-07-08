@@ -31,7 +31,7 @@ export const authoptions = NextAuth({
             username : user.username || user.name.replace(/\s+/g, '').toLowerCase(),
             name: user.name,
             profilePicture: user.image,
-            coverPicture: "banner.gif",
+            coverPicture: "/banner.gif",
 
           })
           await newUser.save();
