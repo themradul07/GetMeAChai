@@ -1,64 +1,67 @@
-import NextAuth from 'next-auth'
-
-import GitHubProvider from 'next-auth/providers/github'
-import mongoose from 'mongoose';
+import NextAuth from 'next-auth';
+import GitHubProvider from 'next-auth/providers/github';
+import GoogleProvider from "next-auth/providers/google";
 import User from '@/models/User';
-import Payment from '@/models/Payment';
-import {connectdb } from '@/db/connectdb';
+import { connectdb } from '@/db/connectdb';
 
-connectdb();
+let isConnected = false;
+
+async function ensureDBConnected() {
+  if (!isConnected) {
+    await connectdb();
+    isConnected = true;
+  }
+}
 
 export const authoptions = NextAuth({
   providers: [
-    
+    GoogleProvider({
+      clientId: process.env.GOOGLE_CLIENT_ID,
+      clientSecret: process.env.GOOGLE_CLIENT_SECRET
+    }),
     GitHubProvider({
       clientId: process.env.GITHUB_ID,
       clientSecret: process.env.GITHUB_SECRET
     })
   ],
-
   callbacks: {
-    
-    async signIn({ user, account, profile, email, credentials }) {
-           
-      if(account.provider == "github")  {
+    async signIn({ user, account }) {
 
-        const currentUser = await User.findOne({email: user.email}) 
-        if(!currentUser){
-          //create an account
-          const newUser = await User.create({
-            email :user.email,
-            username : user.username || user.name.replace(/\s+/g, '').toLowerCase(),
-            name: user.name,
-            profilePicture: user.image,
-            coverPicture: "/banner.gif",
+      await ensureDBConnected();
+      const currentUser = await User.findOne({ email: user.email });
 
-          })
-          await newUser.save();
-          }
-          return true;
-        }
-        
+      if (!currentUser) {
+        const newUser = await User.create({
+          email: user.email,
+          username: user.email.split('@')[0],
+          name: user.name || "Anonymous",
+          profilePicture: "cat.jpeg",
+          coverPicture: "/banner.jpg",
+        });
+        await newUser.save();
+      }
+      return true;
+
     },
 
-    async session({ session, user, token }) {
-     
+    async session({ session }) {
+      await ensureDBConnected();
 
-      const currentUser = await User.findOne({email: session.user.email});
-      console.log("Current User:", currentUser);
+      const currentUser = await User.findOne({ email: session.user.email });
 
-      session.user.name = currentUser.username;
-      session.user.name1 = currentUser.name;
-      session.user.img = currentUser.profilePicture;
+      if (currentUser) {
+        console.log(currentUser)
+        session.user.name = currentUser.username;
+        session.user.name1 = currentUser.name;
+        session.user.img = currentUser.profilePicture;
+      }
+      else {
+        console.log("No User Found")
+      }
 
-      
       return session;
     }
-
-
-    
-
   }
-})
+});
 
-export { authoptions as GET, authoptions as POST }
+export { authoptions as GET, authoptions as POST };

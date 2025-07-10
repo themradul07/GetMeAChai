@@ -24,12 +24,15 @@ export default function Home() {
           A crowdfunding platform for creators. Get funded by fans and followers. Start now!
         </p>
         <div className="flex flex-wrap justify-center gap-4">
+          <Link href={"/Explore"}>
+          
           <button
             type="button"
             className="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl font-medium rounded-lg text-sm px-5 py-2.5"
           >
             Explore Us
           </button>
+          </Link>
           <Link href="/About">
             <button
               type="button"

@@ -19,6 +19,8 @@ const Dashboard = () => {
     razorpayKey: '',
     razorpaySecret: '',
     Bio: '',
+    thumbnail:'',
+    category : '',
   });
 
   useEffect(() => {
@@ -78,6 +80,8 @@ const Dashboard = () => {
           { id: 'email', label: 'Email', type: 'text', disabled: true },
           { id: 'profilePicture', label: 'Profile Picture URL', type: 'text' },
           { id: 'coverPicture', label: 'Cover Picture URL', type: 'text' },
+          { id: 'thumbnail', label: 'Thumbnail URL', type: 'text' },
+          { id: 'Category', label: 'Category', type: 'text' },
           { id: 'razorpayKey', label: 'Razorpay Key', type: 'text' },
           { id: 'razorpaySecret', label: 'Razorpay Secret', type: 'text' },
         ].map(({ id, label, type, disabled }) => (

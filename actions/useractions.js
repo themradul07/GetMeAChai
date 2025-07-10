@@ -65,9 +65,9 @@ export const getuserdetails = async (username) => {
       name: user.name,
       email: user.email,
       username: user.username,
-      profilePicture: user.profilePicture || "https://res.cloudinary.com/dqj1x8v2h/image/upload/v1735681234/Chai%20App/default-profile-picture.png",
+      profilePicture: user.profilePicture || "/cat.jpeg",
       bio: user.bio || "No bio available",
-      coverPicture: user.coverPicture || "https://res.cloudinary.com/dqj1x8v2h/image/upload/v1735681234/Chai%20App/default-cover-picture.png",
+      coverPicture: user.coverPicture || "/banner.gif",
       razorpayKey: user.razorpayKey,
       razorpaySecret: user.razorpaySecret,
       Bio: user.Bio,
@@ -102,7 +102,7 @@ export const fetchpayments = async (username) => {
     }));
   } catch (err) {
     console.log("Error while fetching payments", err);
-    return null; // Return null or handle the error as needed
+    return []; // Return null or handle the error as needed
   }
 }
 
@@ -151,3 +151,21 @@ export const updateProfile = async (username, profileData) => {
     };
   }
 };
+
+export const AllUsers = async (category)=>{
+  await connectdb();
+  const allusers = await User.find({}).lean();
+  const retArray = allusers.map((item , i)=>{
+    return {
+      name : item.name,
+      Bio: item.Bio,
+      username :  item.username,
+      thumbnail : item.thumbnail,
+      category : item.category,
+    }
+
+
+  });
+  return retArray;
+
+}

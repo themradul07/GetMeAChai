@@ -4,7 +4,7 @@ const { Schema , model} = mongoose;
 const userSchema = new Schema({
     name: {
         type: String,
-        // required: true,
+        required: true,
     },
     email: {
         type: String,
@@ -22,20 +22,27 @@ const userSchema = new Schema({
     },
     coverPicture: {
         type: String,
-        default: "/banner.gif",
+        default: "/banner.jpg",
     },
     razorpayKey: {
         type: String,
-        default: "rzp_test_1DP5mmOlF5G5ag",
+        default: "rzp_test_soPPly6mzC4i9K",
     },
     razorpaySecret: {
         type: String,
-        default: "6b1c2f0d3e4f5a6b7c8d9e0f1g2h3i4j5k6l7m8n9o0p1q2r3s4t5u6v7w8x9y0z",
-        
+        default: "IGBMHDdd7k3aJOo7J1pPVq5P",        
     },
     Bio:{
         type:String,
         default: " Buy Me A Chai "
+    },
+    category:{
+        type: String,
+        default: "Null"
+    },
+    thumbnail:{
+        type: String,
+        default: "/Thumbnail.png"
     }
    
 }, { timestamps: true });

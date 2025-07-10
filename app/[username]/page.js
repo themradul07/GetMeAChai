@@ -11,15 +11,13 @@ const Username = ({ params }) => {
 
   const { data: session } = useSession();
   const router = useRouter();
-    const unwrappedParams = React.use(params);
+  const unwrappedParams = React.use(params);
   const { username } = unwrappedParams;
-
   const [paymentform, setPaymentform] = useState({
     name: "",
     message: "",
     amount: 0
   });
-
   const [currentUser, setCurrentUser] = useState({});
   const [payments, setPayments] = useState([]);
 
@@ -32,7 +30,7 @@ const Username = ({ params }) => {
         if (user) {
           setCurrentUser(user);
           const allPayments = await fetchpayments(username);
-          setPayments(allPayments);
+          if(allPayments) setPayments(allPayments);
         }
       } catch (error) {
         console.error("Error fetching data:", error);
@@ -120,7 +118,7 @@ const Username = ({ params }) => {
       <div className="relative">
         <img className="w-full h-[300px] object-cover" src={currentUser.coverPicture} alt="cover" />
         <div className="absolute -bottom-14 left-1/2 transform -translate-x-1/2 border-4 border-white rounded-full">
-          <img src={currentUser.profilePicture} className="w-28 h-28 rounded-full object-cover" alt="profile" />
+          <img src={currentUser.profilePicture !=="" ? currentUser.profilePicture : "/cat.jpeg"} className="w-28 h-28 rounded-full object-cover" alt="profile" />
         </div>
       </div>
 
@@ -129,7 +127,9 @@ const Username = ({ params }) => {
         <div className="font-bold text-xl">{currentUser.name}</div>
         <div className="text-sm text-gray-400">{currentUser.Bio}</div>
         <div className="flex items-center gap-2 text-sm text-gray-400">
-          <span>📦 {payments.length}+ payments</span>
+          <span>{payments && payments.length > 0 ? `📦 ${payments.length}+ payments recieved` : (
+            <li className="text-center text-gray-500">📦 No payments found</li>
+          )}</span>
           <span>•</span>
           <span>💰 ₹{payments.reduce((a, b) => a + b.amount, 0)} raised</span>
         </div>
@@ -146,7 +146,7 @@ const Username = ({ params }) => {
                 <li key={index} className="flex gap-3">
                   <img src="donation.jpeg" alt="donor" className="w-8 h-8 rounded-full object-cover" />
                   <div>
-                    <span className="font-medium text-white">{payment.from_user}</span> donated 
+                    <span className="font-medium text-white">{payment.from_user}</span> donated
                     <span className="font-bold text-green-400"> ₹{payment.amount}</span> with 📝
                     <div>“{payment.message}”</div>
                   </div>
