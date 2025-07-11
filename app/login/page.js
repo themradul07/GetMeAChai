@@ -7,8 +7,9 @@ import { toast } from 'sonner';
 import Head from 'next/head';
 const Page = () => {
 
-    const { data: session } = useSession()
+    const { data: session, status } = useSession();
     const router = useRouter();
+
 
 
     useEffect(() => {
@@ -19,14 +20,15 @@ const Page = () => {
         document.title = "Login / SignUp - Get Me A Chai"
     }, [session, router]);
 
+    if (status === 'loading') return null;
 
 
 
     return (
         <>
-        <Head>
-        <title> Login - Get Me A Chai</title>
-      </Head>
+            <Head>
+                <title> Login - Get Me A Chai</title>
+            </Head>
             <div className='pt-20 text-white'>
                 <div className='text-2xl font-bold text-center'>Login / SignUp</div>
 

@@ -1,9 +1,21 @@
 'use client';
+import { useEffect, useState } from 'react';
 import Image from 'next/image';
 import Link from 'next/link';
 import { useSession } from 'next-auth/react';
+
 export default function Home() {
-   const { data: session } = useSession();
+  const { data: session, status } = useSession();
+  const [hasMounted, setHasMounted] = useState(false);
+
+  // Ensure client-side rendering only
+  useEffect(() => {
+    setHasMounted(true);
+  }, []);
+
+  if (!hasMounted || status === 'loading') {
+    return null; 
+  }
 
   return (
     <div className="min-h-[85vh] w-full bg-[#000000] bg-[radial-gradient(#ffffff33_1px,#00091d_1px)] bg-[size:20px_20px]">
@@ -26,17 +38,17 @@ export default function Home() {
           A crowdfunding platform for creators. Get funded by fans and followers. Start now!
         </p>
         <div className="flex flex-wrap justify-center gap-4">
-          {session ? <Link href={"/Explore"}>
-
-            <button
-              type="button"
-              className="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl font-medium rounded-lg text-sm px-5 py-2.5"
-            >
-              Explore More
-            </button>
-          </Link>
-            : <Link href={"/Login"}>
-
+          {session ? (
+            <Link href="/Explore">
+              <button
+                type="button"
+                className="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl font-medium rounded-lg text-sm px-5 py-2.5"
+              >
+                Explore More
+              </button>
+            </Link>
+          ) : (
+            <Link href="/login">
               <button
                 type="button"
                 className="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl font-medium rounded-lg text-sm px-5 py-2.5"
@@ -44,7 +56,8 @@ export default function Home() {
                 Get Started
               </button>
             </Link>
-          }        <Link href="/About">
+          )}
+          <Link href="/About">
             <button
               type="button"
               className="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl font-medium rounded-lg text-sm px-5 py-2.5"
@@ -100,7 +113,6 @@ export default function Home() {
             referrerPolicy="strict-origin-when-cross-origin"
             allowFullScreen
           ></iframe>
-          {/* <iframe width="560" height="315" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> */}
         </div>
       </div>
 
