@@ -1,8 +1,10 @@
 'use client';
 import Image from 'next/image';
 import Link from 'next/link';
-
+import { useSession } from 'next-auth/react';
 export default function Home() {
+   const { data: session } = useSession();
+
   return (
     <div className="min-h-[85vh] w-full bg-[#000000] bg-[radial-gradient(#ffffff33_1px,#00091d_1px)] bg-[size:20px_20px]">
 
@@ -24,16 +26,25 @@ export default function Home() {
           A crowdfunding platform for creators. Get funded by fans and followers. Start now!
         </p>
         <div className="flex flex-wrap justify-center gap-4">
-          <Link href={"/Explore"}>
-          
-          <button
-            type="button"
-            className="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl font-medium rounded-lg text-sm px-5 py-2.5"
-          >
-            Explore Us
-          </button>
+          {session ? <Link href={"/Explore"}>
+
+            <button
+              type="button"
+              className="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl font-medium rounded-lg text-sm px-5 py-2.5"
+            >
+              Explore More
+            </button>
           </Link>
-          <Link href="/About">
+            : <Link href={"/Login"}>
+
+              <button
+                type="button"
+                className="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl font-medium rounded-lg text-sm px-5 py-2.5"
+              >
+                Get Started
+              </button>
+            </Link>
+          }        <Link href="/About">
             <button
               type="button"
               className="text-white bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl font-medium rounded-lg text-sm px-5 py-2.5"
@@ -82,13 +93,14 @@ export default function Home() {
         <div className="w-full max-w-3xl aspect-video">
           <iframe
             className="w-full h-full rounded-lg"
-            src="https://www.youtube.com/embed/NL1KZkS_xVU?si=Dt990cz0kKXjIFS8"
+            src="https://www.youtube.com/embed/_-lX_XuRpoo?si=1OHeBTtFE_rgoo7H"
             title="YouTube video player"
             frameBorder="0"
             allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
             referrerPolicy="strict-origin-when-cross-origin"
             allowFullScreen
           ></iframe>
+          {/* <iframe width="560" height="315" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe> */}
         </div>
       </div>
 

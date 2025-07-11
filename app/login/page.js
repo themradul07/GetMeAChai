@@ -14,7 +14,7 @@ const Page = () => {
     useEffect(() => {
         if (session) {
             toast.success('Logged in successfully!');
-            router.push("/dashboard");
+            router.push("/");
         }
         document.title = "Login / SignUp - Get Me A Chai"
     }, [session, router]);

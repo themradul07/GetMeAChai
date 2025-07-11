@@ -13,7 +13,7 @@ const Card = ({ title, Bio, thumbnail, funds }) => {
         <div className="bg-gray-100  shadow-md overflow-hidden hover:shadow-lg transition-all duration-300 transform hover:-translate-y-1 cursor-pointer   w-72 h-56 rounded-md">
             <div className="relative w-full h-[150px]">
                 {thumbnail &&
-                    <Image src={thumbnail} className="object-cover bg-purple-300 w-full h-full" width={62} height={40} alt="Customer Validation Event" />}
+                    <Image unoptimized src={thumbnail} className="object-cover bg-purple-300 w-full h-full" width={62} height={40} alt="Customer Validation Event" />}
             </div>
             <div className=" px-3 flex items-center justify-between h-[calc(100%-150px)]">
                 <div className="text-sm max-w-[80%] h-fit font-semibold text-gray-900 mb-1 text-left ">

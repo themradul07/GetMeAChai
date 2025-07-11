@@ -43,7 +43,7 @@ const Navbar = () => {
                 className="bg-gradient-to-br from-purple-600 to-blue-500 hover:bg-gradient-to-bl focus:ring-4 focus:outline-none focus:ring-blue-300 dark:focus:ring-blue-800 font-medium rounded-lg text-xs px-5 py-2.5 text-center"
               >
                 <div className="flex items-center gap-2">
-                  Welcome {session.user.name}
+                  Welcome {session.user.name1}
                   <svg
                     className="w-2.5 h-2.5"
                     xmlns="http://www.w3.org/2000/svg"
@@ -67,7 +67,7 @@ const Navbar = () => {
                 }`}
               >
                 <div className="px-4 py-3 text-sm text-gray-900 dark:text-white">
-                  <div>{session.user.name}</div>
+                  <div>{session.user.name1}</div>
                   <div className="font-medium truncate">{session.user.email}</div>
                 </div>
                 <ul className="py-2 text-sm text-gray-700 dark:text-gray-200">
@@ -77,6 +77,14 @@ const Navbar = () => {
                       className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
                     >
                       Homepage
+                    </Link>
+                  </li>
+                  <li>
+                    <Link
+                      href="/Explore"
+                      className="block px-4 py-2 hover:bg-gray-100 dark:hover:bg-gray-600 dark:hover:text-white"
+                    >
+                      Explore
                     </Link>
                   </li>
                   <li>
@@ -126,6 +134,9 @@ const Navbar = () => {
               </Link>
               <Link onClick={() => setMobileMenuOpen(false)} href="/dashboard" className="block px-2 py-1 text-white rounded">
                 Dashboard
+              </Link>
+              <Link onClick={() => setMobileMenuOpen(false)} href={`/Explore`} className="block px-2 py-1 text-white rounded">
+                Explore
               </Link>
               <Link onClick={() => setMobileMenuOpen(false)} href={`/${session.user.name}`} className="block px-2 py-1 text-white rounded">
                 Profile
